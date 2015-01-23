@@ -1,8 +1,7 @@
-window.Lernhow = {};
-
-Lernhow.Router = Backbone.Router.extend({
+var LernhowRouter = Backbone.Router.extend({
   routes: {
-    '': 'index'
+    '': 'index',
+    'signup': 'createUser'
   },
   initialize: function() {
     console.log('Lernhow CLIENT is live ...');
@@ -10,15 +9,22 @@ Lernhow.Router = Backbone.Router.extend({
     $('.header').html(this.globalNav.el);
   },
   index: function(id) {
+    console.log("hit index");
     if (!this.homeView) {
       this.homeView = new HomeView();
     }
     $('#container').html(this.homeView.el);
-    // this.globalNav.selectMenuItem('home-menu');
+    this.globalNav.selectMenuItem('index');
+  },
+
+  createUser: function(id){
+    console.log("hit create user");
+    $('#container').html(new CreateUserView());
+    this.globalNav.selectMenuItem('signup-form');
   }
 });
 
-utils.loadTemplates(['GlobalNavView'], function() {
-  new Lernhow.Router();
+utils.loadTemplates(['GlobalNavView', 'HomeView', 'CreateUserView'], function() {
+  var app = new LernhowRouter();
   Backbone.history.start({ pushState: true });
 });
