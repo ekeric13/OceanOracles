@@ -11,7 +11,6 @@ window.utils = {
       } else {
         console.log(view + " not found");
       }
-
     });
 
     $.when.apply(null, deferreds).done(callback);
